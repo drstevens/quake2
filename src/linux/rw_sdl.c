@@ -417,10 +417,7 @@ static void SetSDLIcon(void) {
 */
 static qboolean SDLimp_InitGraphics( qboolean fullscreen )
 {
-	int flags;
-#ifndef GL_QUAKE
-	const SDL_VideoInfo* vinfo;
-#endif
+	int flags, bpp;
 
 	/* Just toggle fullscreen if that's all that has been changed */
 	if (surface && (surface->w == vid.width) && (surface->h == vid.height)) {
@@ -461,10 +458,11 @@ static qboolean SDLimp_InitGraphics( qboolean fullscreen )
 
 	flags = SDL_OPENGL;
 	gl_state.stencil = true;
+	bpp = 0;
 #else
-	vinfo = SDL_GetVideoInfo();
-	sdl_palettemode = (vinfo->vfmt->BitsPerPixel == 8) ? (SDL_PHYSPAL|SDL_LOGPAL) : SDL_LOGPAL;
-	flags = /*SDL_DOUBLEBUF|*/SDL_SWSURFACE|SDL_HWPALETTE;
+	sdl_palettemode = SDL_PHYSPAL|SDL_LOGPAL;
+	flags = 0;
+	bpp = 8;
 #endif
 
 	if (fullscreen)
@@ -472,7 +470,7 @@ static qboolean SDLimp_InitGraphics( qboolean fullscreen )
 
 	SetSDLIcon(); /* currently uses q2icon.xbm data */
 
-	if ((surface = SDL_SetVideoMode(vid.width, vid.height, 0, flags)) == NULL) {
+	if ((surface = SDL_SetVideoMode(vid.width, vid.height, bpp, flags)) == NULL) {
 		Sys_Error("(SDLGL) SDL SetVideoMode failed: %s\n", SDL_GetError());
 		return false;
 	}
