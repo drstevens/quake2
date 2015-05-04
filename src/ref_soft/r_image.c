@@ -98,10 +98,10 @@ void LoadPCX (char *filename, byte **pic, byte **palette, int *width, int *heigh
 	//
 	// load the file
 	//
-	len = ri.FS_LoadFile (filename, (void **)&raw);
+	len = FS_LoadFile (filename, (void **)&raw);
 	if (!raw)
 	{
-		ri.Con_Printf (PRINT_DEVELOPER, "Bad pcx file %s\n", filename);
+		Com_Printf ("Bad pcx file %s\n", filename);
 		return;
 	}
 
@@ -171,12 +171,12 @@ void LoadPCX (char *filename, byte **pic, byte **palette, int *width, int *heigh
 
 	if ( raw - (byte *)pcx > len)
 	{
-		ri.Con_Printf (PRINT_DEVELOPER, "PCX file %s was malformed", filename);
+		Com_Printf ("PCX file %s was malformed", filename);
 		free (*pic);
 		*pic = NULL;
 	}
 
-	ri.FS_FreeFile (pcx);
+	FS_FreeFile (pcx);
 }
 
 /*
@@ -216,10 +216,10 @@ void LoadTGA (char *name, byte **pic, int *width, int *height)
 	//
 	// load the file
 	//
-	(void) ri.FS_LoadFile (name, (void **)&buffer);
+	(void) FS_LoadFile (name, (void **)&buffer);
 	if (!buffer)
 	{
-		ri.Con_Printf (PRINT_DEVELOPER, "Bad tga file %s\n", name);
+		Com_Printf ("Bad tga file %s\n", name);
 		return;
 	}
 
@@ -247,11 +247,11 @@ void LoadTGA (char *name, byte **pic, int *width, int *height)
 
 	if (targa_header.image_type!=2 
 		&& targa_header.image_type!=10) 
-		ri.Sys_Error (ERR_DROP, "LoadTGA: Only type 2 and 10 targa RGB images supported\n");
+		Sys_Error ("LoadTGA: Only type 2 and 10 targa RGB images supported\n");
 
 	if (targa_header.colormap_type !=0 
 		|| (targa_header.pixel_size!=32 && targa_header.pixel_size!=24))
-		ri.Sys_Error (ERR_DROP, "LoadTGA: Only 32 or 24 bit images supported (no colormaps)\n");
+		Sys_Error ("LoadTGA: Only 32 or 24 bit images supported (no colormaps)\n");
 
 	columns = targa_header.width;
 	rows = targa_header.height;
@@ -376,7 +376,7 @@ void LoadTGA (char *name, byte **pic, int *width, int *height)
 		}
 	}
 
-	ri.FS_FreeFile (buffer);
+	FS_FreeFile (buffer);
 }
 
 
@@ -396,7 +396,7 @@ image_t *R_FindFreeImage (void)
 	if (i == numr_images)
 	{
 		if (numr_images == MAX_RIMAGES)
-			ri.Sys_Error (ERR_DROP, "MAX_RIMAGES");
+			Sys_Error ("MAX_RIMAGES");
 		numr_images++;
 	}
 	image = &r_images[i];
@@ -417,7 +417,7 @@ static image_t *GL_LoadPic (char *name, byte *pic, byte *palette, int width, int
 
 	image = R_FindFreeImage ();
 	if (strlen(name) >= sizeof(image->name))
-		ri.Sys_Error (ERR_DROP, "Draw_LoadPic: \"%s\" is too long", name);
+		Sys_Error ("Draw_LoadPic: \"%s\" is too long", name);
 	strcpy (image->name, name);
 	image->registration_sequence = registration_sequence;
 
@@ -461,7 +461,7 @@ image_t *R_LoadWal (char *name)
 	image_t		*image;
 	int			size, i;
 
-	ri.FS_LoadFile (name, (void **)&mt);
+	FS_LoadFile (name, (void **)&mt);
 	if (!mt)
 	{
 		Com_Printf ("R_LoadWal: can't load %s\n", name);
@@ -486,7 +486,7 @@ image_t *R_LoadWal (char *name)
 		image->pixels[0][i] = palette_to_pixel (((byte *)mt)[ofs + i]);
 	}
 
-	ri.FS_FreeFile ((void *)mt);
+	FS_FreeFile ((void *)mt);
 
 	return image;
 }
@@ -507,10 +507,10 @@ image_t	*R_FindImage (char *name, imagetype_t type)
 	int		width, height;
 
 	if (!name)
-		return NULL;	// ri.Sys_Error (ERR_DROP, "R_FindImage: NULL name");
+		return NULL;	// Sys_Error ("R_FindImage: NULL name");
 	len = strlen(name);
 	if (len<5)
-		return NULL;	// ri.Sys_Error (ERR_DROP, "R_FindImage: bad name: %s", name);
+		return NULL;	// Sys_Error ("R_FindImage: bad name: %s", name);
 
 	// look for it
 	for (i=0, image=r_images ; i<numr_images ; i++,image++)
@@ -531,7 +531,7 @@ image_t	*R_FindImage (char *name, imagetype_t type)
 	{
 		LoadPCX (name, &pic, &palette, &width, &height);
 		if (!pic)
-			return NULL;	// ri.Sys_Error (ERR_DROP, "R_FindImage: can't load %s", name);
+			return NULL;	// Sys_Error ("R_FindImage: can't load %s", name);
 		image = GL_LoadPic (name, pic, palette, width, height, type);
 	}
 	else if (!strcmp(name+len-4, ".wal"))
@@ -539,9 +539,9 @@ image_t	*R_FindImage (char *name, imagetype_t type)
 		image = R_LoadWal (name);
 	}
 	else if (!strcmp(name+len-4, ".tga"))
-		return NULL;	// ri.Sys_Error (ERR_DROP, "R_FindImage: can't load %s in software renderer", name);
+		return NULL;	// Sys_Error ("R_FindImage: can't load %s in software renderer", name);
 	else
-		return NULL;	// ri.Sys_Error (ERR_DROP, "R_FindImage: bad extension on: %s", name);
+		return NULL;	// Sys_Error ("R_FindImage: bad extension on: %s", name);
 
 	if (pic)
 		free(pic);
@@ -558,7 +558,7 @@ image_t	*R_FindImage (char *name, imagetype_t type)
 R_RegisterSkin
 ===============
 */
-struct image_s *R_RegisterSkin (char *name)
+struct image_s *R_RegisterSkin (const char *name)
 {
 	return R_FindImage (name, it_skin);
 }
