@@ -84,7 +84,7 @@ PCX LOADING
 LoadPCX
 ==============
 */
-void LoadPCX (char *filename, byte **pic, byte **palette, int *width, int *height)
+void LoadPCX (const char *filename, byte **pic, byte **palette, int *width, int *height)
 {
 	byte	*raw;
 	pcx_t	*pcx;
@@ -410,7 +410,7 @@ GL_LoadPic
 
 ================
 */
-static image_t *GL_LoadPic (char *name, byte *pic, byte *palette, int width, int height, imagetype_t type)
+static image_t *GL_LoadPic (const char *name, byte *pic, byte *palette, int width, int height, imagetype_t type)
 {
 	image_t		*image;
 	int			i, c, x;
@@ -454,7 +454,7 @@ static image_t *GL_LoadPic (char *name, byte *pic, byte *palette, int width, int
 R_LoadWal
 ================
 */
-image_t *R_LoadWal (char *name)
+image_t *R_LoadWal (const char *name)
 {
 	miptex_t	*mt;
 	int			ofs;
@@ -499,7 +499,7 @@ R_FindImage
 Finds or loads the given image
 ===============
 */
-image_t	*R_FindImage (char *name, imagetype_t type)
+image_t	*R_FindImage (const char *name, imagetype_t type)
 {
 	image_t	*image;
 	int		i, len;

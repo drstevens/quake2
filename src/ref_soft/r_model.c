@@ -87,7 +87,7 @@ Mod_ForName
 Loads in a model for the given name
 ==================
 */
-model_t *Mod_ForName (char *name, qboolean crash)
+model_t *Mod_ForName (const char *name, qboolean crash)
 {
 	model_t	*mod;
 	unsigned *buf;
@@ -133,7 +133,7 @@ model_t *Mod_ForName (char *name, qboolean crash)
 	//
 	// load the file
 	//
-	modfilelen = ri.FS_LoadFile (mod->name, (void **)&buf);
+	modfilelen = FS_LoadFile (mod->name, (void **)&buf);
 	if (!buf)
 	{
 		if (crash)
@@ -174,7 +174,7 @@ model_t *Mod_ForName (char *name, qboolean crash)
 
 	loadmodel->extradatasize = Hunk_End ();
 
-	ri.FS_FreeFile (buf);
+	FS_FreeFile (buf);
 
 	return mod;
 }
@@ -1124,7 +1124,7 @@ R_BeginRegistration
 Specifies the model that will be used as the world
 @@@@@@@@@@@@@@@@@@@@@
 */
-void R_BeginRegistration (char *model)
+void R_BeginRegistration (const char *model)
 {
 	char	fullname[MAX_QPATH];
 	cvar_t	*flushmap;
@@ -1136,7 +1136,7 @@ void R_BeginRegistration (char *model)
 	D_FlushCaches ();
 	// explicitly free the old map if different
 	// this guarantees that mod_known[0] is the world map
-	flushmap = ri.Cvar_Get ("flushmap", "0", 0);
+	flushmap = Cvar_Get ("flushmap", "0", 0);
 	if ( strcmp(mod_known[0].name, fullname) || flushmap->value)
 		Mod_Free (&mod_known[0]);
 	r_worldmodel = R_RegisterModel (fullname);
@@ -1150,7 +1150,7 @@ R_RegisterModel
 
 @@@@@@@@@@@@@@@@@@@@@
 */
-struct model_s *R_RegisterModel (char *name)
+struct model_s *R_RegisterModel (const char *name)
 {
 	model_t	*mod;
 	int		i;

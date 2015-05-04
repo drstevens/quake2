@@ -35,7 +35,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define MAX_FRAMES			(MD2_MAX_FRAMES)
 #define MAX_MD2SKINS		(MD2_MAX_SKINS)
 
-
 #define REF_VERSION     "SOFT 0.01"
 
 // up / down
@@ -835,7 +834,7 @@ extern pixel_t d_8topixel[256];
 void    Sys_MakeCodeWriteable (unsigned long startaddr, unsigned long length);
 void    Sys_SetFPCW (void);
 
-void LoadPCX (char *filename, byte **pic, byte **palette, int *width, int *height);
+void LoadPCX (const char *filename, byte **pic, byte **palette, int *width, int *height);
 
 void    R_InitImages (void);
 void	R_ShutdownImages (void);

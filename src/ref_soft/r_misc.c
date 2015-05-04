@@ -50,6 +50,7 @@ D_Patch
 void D_Patch (void)
 {
 #if id386
+#error "id386 is set"
 	extern void D_Aff8Patch( void );
 	static qboolean protectset8 = false;
 	extern void D_PolysetAff8Start( void );
@@ -622,7 +623,7 @@ void R_ScreenShot_f (void)
 	byte		palette[768];
 
 	// create the scrnshots directory if it doesn't exist
-	Com_sprintf (checkname, sizeof(checkname), "%s/scrnshot", ri.FS_Gamedir());
+	Com_sprintf (checkname, sizeof(checkname), "%s/scrnshot", FS_Gamedir());
 	Sys_Mkdir (checkname);
 
 // 
@@ -634,7 +635,7 @@ void R_ScreenShot_f (void)
 	{ 
 		pcxname[5] = i/10 + '0'; 
 		pcxname[6] = i%10 + '0'; 
-		Com_sprintf (checkname, sizeof(checkname), "%s/scrnshot/%s", ri.FS_Gamedir(), pcxname);
+		Com_sprintf (checkname, sizeof(checkname), "%s/scrnshot/%s", FS_Gamedir(), pcxname);
 		f = fopen (checkname, "r");
 		if (!f)
 			break;	// file doesn't exist
