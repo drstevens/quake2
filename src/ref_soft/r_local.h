@@ -29,6 +29,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "../client/ref.h"
 
+/* Some names have changed in jdolan/quake2: */
+#define MAX_TRIANGLES		(MD2_MAX_TRIANGLES)
+#define MAX_VERTS			(MD2_MAX_VERTS)
+#define MAX_FRAMES			(MD2_MAX_FRAMES)
+#define MAX_MD2SKINS		(MD2_MAX_SKINS)
+
+
 #define REF_VERSION     "SOFT 0.01"
 
 // up / down
@@ -803,26 +810,16 @@ void R_NewMap (void);
 void R_Register (void);
 void R_UnRegister (void);
 void Draw_InitLocal (void);
-qboolean R_Init( void *hInstance, void *wndProc );
 void R_Shutdown (void);
 void R_InitCaches (void);
 void D_FlushCaches (void);
 
 void	R_ScreenShot_f( void );
-void    R_BeginRegistration (char *map);
-struct model_s  *R_RegisterModel (char *name);
 void    R_EndRegistration (void);
 
 void    R_RenderFrame (refdef_t *fd);
 
-struct image_s  *Draw_FindPic (char *name);
-
-void    Draw_GetPicSize (int *w, int *h, char *name);
-void    Draw_Pic (int x, int y, char *name);
-void    Draw_StretchPic (int x, int y, int w, int h, char *name);
 void    Draw_StretchRaw (int x, int y, int w, int h, int cols, int rows, byte *data);
-void    Draw_Char (int x, int y, int c);
-void    Draw_TileClear (int x, int y, int w, int h, char *name);
 void    Draw_Fill (int x, int y, int w, int h, int c);
 void    Draw_FadeScreen (void);
 
@@ -864,16 +861,6 @@ typedef struct swstate_s
 void R_IMFlatShadedQuad( vec3_t a, vec3_t b, vec3_t c, vec3_t d, pixel_t color, float alpha );
 
 extern swstate_t sw_state;
-
-/*
-====================================================================
-
-IMPORTED FUNCTIONS
-
-====================================================================
-*/
-
-extern  refimport_t     ri;
 
 /*
 ====================================================================
