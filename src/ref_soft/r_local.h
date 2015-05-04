@@ -839,7 +839,7 @@ void LoadPCX (char *filename, byte **pic, byte **palette, int *width, int *heigh
 
 void    R_InitImages (void);
 void	R_ShutdownImages (void);
-image_t *R_FindImage (char *name, imagetype_t type);
+image_t *R_FindImage (const char *name, imagetype_t type);
 void    R_FreeUnusedImages (void);
 
 void	R_GammaCorrectAndSetPalette( const unsigned char *pal );

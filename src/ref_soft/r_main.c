@@ -22,7 +22,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "r_local.h"
 
 viddef_t	vid;
-refimport_t	ri;
 
 unsigned	d_8to24table[256];
 pixel_t  	d_8topixel[256];
@@ -248,52 +247,52 @@ void R_ImageList_f( void );
 
 void R_Register (void)
 {
-	sw_aliasstats = ri.Cvar_Get ("sw_polymodelstats", "0", 0);
-	sw_allow_modex = ri.Cvar_Get( "sw_allow_modex", "1", CVAR_ARCHIVE );
-	sw_clearcolor = ri.Cvar_Get ("sw_clearcolor", "2", 0);
-	sw_drawflat = ri.Cvar_Get ("sw_drawflat", "0", 0);
-	sw_draworder = ri.Cvar_Get ("sw_draworder", "0", 0);
-	sw_maxedges = ri.Cvar_Get ("sw_maxedges", STRINGER(MAXSTACKSURFACES), 0);
-	sw_maxsurfs = ri.Cvar_Get ("sw_maxsurfs", "0", 0);
-	sw_mipcap = ri.Cvar_Get ("sw_mipcap", "0", 0);
-	sw_mipscale = ri.Cvar_Get ("sw_mipscale", "1", 0);
-	sw_reportedgeout = ri.Cvar_Get ("sw_reportedgeout", "0", 0);
-	sw_reportsurfout = ri.Cvar_Get ("sw_reportsurfout", "0", 0);
-	sw_stipplealpha = ri.Cvar_Get( "sw_stipplealpha", "0", CVAR_ARCHIVE );
-	sw_surfcacheoverride = ri.Cvar_Get ("sw_surfcacheoverride", "0", 0);
-	sw_waterwarp = ri.Cvar_Get ("sw_waterwarp", "1", 0);
-	sw_mode = ri.Cvar_Get( "sw_mode", "0", CVAR_ARCHIVE );
+	sw_aliasstats = Cvar_Get ("sw_polymodelstats", "0", 0);
+	sw_allow_modex = Cvar_Get( "sw_allow_modex", "1", CVAR_ARCHIVE );
+	sw_clearcolor = Cvar_Get ("sw_clearcolor", "2", 0);
+	sw_drawflat = Cvar_Get ("sw_drawflat", "0", 0);
+	sw_draworder = Cvar_Get ("sw_draworder", "0", 0);
+	sw_maxedges = Cvar_Get ("sw_maxedges", STRINGER(MAXSTACKSURFACES), 0);
+	sw_maxsurfs = Cvar_Get ("sw_maxsurfs", "0", 0);
+	sw_mipcap = Cvar_Get ("sw_mipcap", "0", 0);
+	sw_mipscale = Cvar_Get ("sw_mipscale", "1", 0);
+	sw_reportedgeout = Cvar_Get ("sw_reportedgeout", "0", 0);
+	sw_reportsurfout = Cvar_Get ("sw_reportsurfout", "0", 0);
+	sw_stipplealpha = Cvar_Get( "sw_stipplealpha", "0", CVAR_ARCHIVE );
+	sw_surfcacheoverride = Cvar_Get ("sw_surfcacheoverride", "0", 0);
+	sw_waterwarp = Cvar_Get ("sw_waterwarp", "1", 0);
+	sw_mode = Cvar_Get( "sw_mode", "0", CVAR_ARCHIVE );
 
-	r_lefthand = ri.Cvar_Get( "hand", "0", CVAR_USERINFO | CVAR_ARCHIVE );
-	r_speeds = ri.Cvar_Get ("r_speeds", "0", 0);
-	r_fullbright = ri.Cvar_Get ("r_fullbright", "0", 0);
-	r_drawentities = ri.Cvar_Get ("r_drawentities", "1", 0);
-	r_drawworld = ri.Cvar_Get ("r_drawworld", "1", 0);
-	r_dspeeds = ri.Cvar_Get ("r_dspeeds", "0", 0);
-	r_lightlevel = ri.Cvar_Get ("r_lightlevel", "0", 0);
-	r_lerpmodels = ri.Cvar_Get( "r_lerpmodels", "1", 0 );
-	r_novis = ri.Cvar_Get( "r_novis", "0", 0 );
+	r_lefthand = Cvar_Get( "hand", "0", CVAR_USERINFO | CVAR_ARCHIVE );
+	r_speeds = Cvar_Get ("r_speeds", "0", 0);
+	r_fullbright = Cvar_Get ("r_fullbright", "0", 0);
+	r_drawentities = Cvar_Get ("r_drawentities", "1", 0);
+	r_drawworld = Cvar_Get ("r_drawworld", "1", 0);
+	r_dspeeds = Cvar_Get ("r_dspeeds", "0", 0);
+	r_lightlevel = Cvar_Get ("r_lightlevel", "0", 0);
+	r_lerpmodels = Cvar_Get( "r_lerpmodels", "1", 0 );
+	r_novis = Cvar_Get( "r_novis", "0", 0 );
 
-	vid_fullscreen = ri.Cvar_Get( "vid_fullscreen", "0", CVAR_ARCHIVE );
-	vid_gamma = ri.Cvar_Get( "vid_gamma", "1.0", CVAR_ARCHIVE );
+	vid_fullscreen = Cvar_Get( "vid_fullscreen", "0", CVAR_ARCHIVE );
+	vid_gamma = Cvar_Get( "vid_gamma", "1.0", CVAR_ARCHIVE );
 
-	ri.Cmd_AddCommand ("modellist", Mod_Modellist_f);
-	ri.Cmd_AddCommand( "screenshot", R_ScreenShot_f );
-	ri.Cmd_AddCommand( "imagelist", R_ImageList_f );
+	Cmd_AddCommand ("modellist", Mod_Modellist_f);
+	Cmd_AddCommand( "screenshot", R_ScreenShot_f );
+	Cmd_AddCommand( "imagelist", R_ImageList_f );
 
 	sw_mode->modified = true; // force us to do mode specific stuff later
 	vid_gamma->modified = true; // force us to rebuild the gamma table later
 
 //PGM
-	sw_lockpvs = ri.Cvar_Get ("sw_lockpvs", "0", 0);
+	sw_lockpvs = Cvar_Get ("sw_lockpvs", "0", 0);
 //PGM
 }
 
 void R_UnRegister (void)
 {
-	ri.Cmd_RemoveCommand( "screenshot" );
-	ri.Cmd_RemoveCommand ("modellist");
-	ri.Cmd_RemoveCommand( "imagelist" );
+	Cmd_RemoveCommand( "screenshot" );
+	Cmd_RemoveCommand ("modellist");
+	Cmd_RemoveCommand( "imagelist" );
 }
 
 /*
@@ -301,7 +300,7 @@ void R_UnRegister (void)
 R_Init
 ===============
 */
-qboolean R_Init( void *hInstance, void *wndProc )
+int R_Init( void *hInstance, void *wndProc )
 {
 	R_InitImages ();
 	Mod_Init ();
@@ -1000,7 +999,7 @@ void R_RenderFrame (refdef_t *fd)
 	r_newrefdef = *fd;
 
 	if (!r_worldmodel && !( r_newrefdef.rdflags & RDF_NOWORLDMODEL ) )
-		ri.Sys_Error (ERR_FATAL,"R_RenderView: NULL worldmodel");
+		Sys_Error ("R_RenderView: NULL worldmodel");
 
 	VectorCopy (fd->vieworg, r_refdef.vieworg);
 	VectorCopy (fd->viewangles, r_refdef.viewangles);
@@ -1136,14 +1135,14 @@ void R_BeginFrame( float camera_separation )
 		{
 			if ( err == rserr_invalid_mode )
 			{
-				ri.Cvar_SetValue( "sw_mode", sw_state.prev_mode );
+				Cvar_SetValue( "sw_mode", sw_state.prev_mode );
 				Com_Printf ("ref_soft::R_BeginFrame() - could not set mode\n" );
 			}
 			else if ( err == rserr_invalid_fullscreen )
 			{
 				R_InitGraphics( vid.width, vid.height );
 
-				ri.Cvar_SetValue( "vid_fullscreen", 0);
+				Cvar_SetValue( "vid_fullscreen", 0);
 				Com_Printf ("ref_soft::R_BeginFrame() - fullscreen unavailable in this mode\n" );
 				sw_state.prev_mode = sw_mode->value;
 //				vid_fullscreen->modified = false;
@@ -1151,7 +1150,7 @@ void R_BeginFrame( float camera_separation )
 			}
 			else
 			{
-				ri.Sys_Error( ERR_FATAL, "ref_soft::R_BeginFrame() - catastrophic mode change failure\n" );
+				Sys_Error ("ref_soft::R_BeginFrame() - catastrophic mode change failure\n" );
 			}
 		}
 	}
@@ -1307,7 +1306,7 @@ R_SetSky
 char	*suf[6] = {"rt", "bk", "lf", "ft", "up", "dn"};
 int	r_skysideimage[6] = {5, 2, 4, 1, 0, 3};
 extern	mtexinfo_t		r_skytexinfo[6];
-void R_SetSky (char *name, float rotate, vec3_t axis)
+void R_SetSky (const char *name, float rotate, vec3_t axis)
 {
 	int		i;
 	char	pathname[MAX_QPATH];
@@ -1338,7 +1337,7 @@ void Draw_GetPalette (void)
 	// get the palette and colormap
 	LoadPCX ("pics/colormap.pcx", &tmp, &pal, NULL, NULL);
 	if (!tmp)
-		ri.Sys_Error (ERR_FATAL, "Couldn't load pics/colormap.pcx");
+		Sys_Error ("Couldn't load pics/colormap.pcx");
 
 	out = (byte *)d_8to24table;
 	for (i=0 ; i<256 ; i++, out+=4)
@@ -1370,7 +1369,7 @@ void Draw_GetPalette (void)
 #endif
 }
 
-struct image_s *R_RegisterSkin (char *name);
+struct image_s *R_RegisterSkin (const char *name);
 
 /*
 @@@@@@@@@@@@@@@@@@@@@

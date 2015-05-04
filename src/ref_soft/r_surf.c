@@ -503,15 +503,15 @@ surfcache_t     *D_SCAlloc (int width, int size)
 	qboolean                wrapped_this_time;
 
 	if ((width < 0) || (width > 256))
-		ri.Sys_Error (ERR_FATAL,"D_SCAlloc: bad cache width %d\n", width);
+		Sys_Error ("D_SCAlloc: bad cache width %d\n", width);
 
 	if ((size <= 0) || (size > (0x10000 * sizeof (pixel_t))))
-		ri.Sys_Error (ERR_FATAL,"D_SCAlloc: bad cache size %d\n", size);
+		Sys_Error ("D_SCAlloc: bad cache size %d\n", size);
 	
 	size = (int) ((intptr_t) &((surfcache_t *)0)->data[size]);
 	size = (size + 3) & ~3;
 	if (size > sc_size)
-		ri.Sys_Error (ERR_FATAL,"D_SCAlloc: %i > cache size of %i",size, sc_size);
+		Sys_Error ("D_SCAlloc: %i > cache size of %i",size, sc_size);
 
 // if there is not size bytes after the rover, reset to the start
 	wrapped_this_time = false;
@@ -535,7 +535,7 @@ surfcache_t     *D_SCAlloc (int width, int size)
 	// free another
 		sc_rover = sc_rover->next;
 		if (!sc_rover)
-			ri.Sys_Error (ERR_FATAL,"D_SCAlloc: hit the end of memory");
+			Sys_Error ("D_SCAlloc: hit the end of memory");
 		if (sc_rover->owner)
 			*sc_rover->owner = NULL;
 			
