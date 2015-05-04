@@ -113,16 +113,23 @@ QUAKE2_OBJS = \
 	src/qcommon/pmove.o \
 	src/qcommon/q_msg.o \
 	\
-	src/ref_gl/gl_decal.o \
-	src/ref_gl/gl_draw.o \
-	src/ref_gl/gl_image.o \
-	src/ref_gl/gl_light.o \
-	src/ref_gl/gl_mesh.o \
-	src/ref_gl/gl_model.o \
-	src/ref_gl/gl_rmain.o \
-	src/ref_gl/gl_rmisc.o \
-	src/ref_gl/gl_rsurf.o \
-	src/ref_gl/gl_warp.o \
+	src/ref_soft/r_aclip.o \
+	src/ref_soft/r_alias.o \
+	src/ref_soft/r_bsp.o \
+	src/ref_soft/r_draw.o \
+	src/ref_soft/r_edge.o \
+	src/ref_soft/r_image.o \
+	src/ref_soft/r_light.o \
+	src/ref_soft/r_main.o \
+	src/ref_soft/r_misc.o \
+	src/ref_soft/r_model.o \
+	src/ref_soft/r_part.o \
+	src/ref_soft/r_poly.o \
+	src/ref_soft/r_polyse.o \
+	src/ref_soft/r_rast.o \
+	src/ref_soft/r_scan.o \
+	src/ref_soft/r_sprite.o \
+	src/ref_soft/r_surf.o \
 	\
 	src/server/sv_ccmds.o \
 	src/server/sv_ents.o \
