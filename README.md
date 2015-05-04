@@ -1,8 +1,8 @@
-# Quake II for Linux
+# Quake II for Linux (Software Rendering)
 
 Work in progress, under construction etc.
 
-![Under construction](uc.gif)
+![Under construction - 90s style](uc.gif)
 
 I am working on a small project to restore the software renderer to 
 a recent port of [Quake II](http://en.wikipedia.org/wiki/Quake_II).
@@ -16,7 +16,7 @@ the original game.
 It's time to have a similar choice for Quake II!
 
 While working on another project I read 
-[http://fabiensanglard.net/quake2/](Fabian Sanglard's review of Quake 2 source),
+[Fabian Sanglard's review of Quake 2 source](http://fabiensanglard.net/quake2/)
 and thought it might be fun to update the software renderer with
 24-bit colour, going beyond the limitations of the 8-bit palette.
 This means coloured lighting, smooth alpha blending, less noise
