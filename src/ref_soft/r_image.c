@@ -37,7 +37,7 @@ void	R_ImageList_f (void)
 	image_t	*image;
 	int		texels;
 
-	ri.Con_Printf (PRINT_ALL, "------------------\n");
+	Com_Printf ("------------------\n");
 	texels = 0;
 
 	for (i=0, image=r_images ; i<numr_images ; i++, image++)
@@ -48,26 +48,26 @@ void	R_ImageList_f (void)
 		switch (image->type)
 		{
 		case it_skin:
-			ri.Con_Printf (PRINT_ALL, "M");
+			Com_Printf ("M");
 			break;
 		case it_sprite:
-			ri.Con_Printf (PRINT_ALL, "S");
+			Com_Printf ("S");
 			break;
 		case it_wall:
-			ri.Con_Printf (PRINT_ALL, "W");
+			Com_Printf ("W");
 			break;
 		case it_pic:
-			ri.Con_Printf (PRINT_ALL, "P");
+			Com_Printf ("P");
 			break;
 		default:
-			ri.Con_Printf (PRINT_ALL, " ");
+			Com_Printf (" ");
 			break;
 		}
 
-		ri.Con_Printf (PRINT_ALL,  " %3i %3i : %s\n",
+		Com_Printf (" %3i %3i : %s\n",
 			image->width, image->height, image->name);
 	}
-	ri.Con_Printf (PRINT_ALL, "Total texel count: %i\n", texels);
+	Com_Printf ("Total texel count: %i\n", texels);
 }
 
 
@@ -128,7 +128,7 @@ void LoadPCX (char *filename, byte **pic, byte **palette, int *width, int *heigh
 		|| pcx->xmax >= 640
 		|| pcx->ymax >= 480)
 	{
-		ri.Con_Printf (PRINT_ALL, "Bad pcx file %s\n", filename);
+		Com_Printf ("Bad pcx file %s\n", filename);
 		return;
 	}
 
@@ -464,7 +464,7 @@ image_t *R_LoadWal (char *name)
 	ri.FS_LoadFile (name, (void **)&mt);
 	if (!mt)
 	{
-		ri.Con_Printf (PRINT_ALL, "R_LoadWal: can't load %s\n", name);
+		Com_Printf ("R_LoadWal: can't load %s\n", name);
 		return r_notexture_mip;
 	}
 

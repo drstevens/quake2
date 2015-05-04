@@ -336,7 +336,7 @@ qboolean R_Init( void *hInstance, void *wndProc )
 	// create the window
 	R_BeginFrame( 0 );
 
-	ri.Con_Printf (PRINT_ALL, "ref_soft version: "REF_VERSION"\n");
+	Com_Printf ("ref_soft version: "REF_VERSION"\n");
 
 	return true;
 }
@@ -1062,10 +1062,10 @@ void R_RenderFrame (refdef_t *fd)
 		R_PrintDSpeeds ();
 
 	if (sw_reportsurfout->value && r_outofsurfaces)
-		ri.Con_Printf (PRINT_ALL,"Short %d surfaces\n", r_outofsurfaces);
+		Com_Printf ("Short %d surfaces\n", r_outofsurfaces);
 
 	if (sw_reportedgeout->value && r_outofedges)
-		ri.Con_Printf (PRINT_ALL,"Short roughly %d edges\n", r_outofedges * 2 / 3);
+		Com_Printf ("Short roughly %d edges\n", r_outofedges * 2 / 3);
 }
 
 /*
@@ -1137,14 +1137,14 @@ void R_BeginFrame( float camera_separation )
 			if ( err == rserr_invalid_mode )
 			{
 				ri.Cvar_SetValue( "sw_mode", sw_state.prev_mode );
-				ri.Con_Printf( PRINT_ALL, "ref_soft::R_BeginFrame() - could not set mode\n" );
+				Com_Printf ("ref_soft::R_BeginFrame() - could not set mode\n" );
 			}
 			else if ( err == rserr_invalid_fullscreen )
 			{
 				R_InitGraphics( vid.width, vid.height );
 
 				ri.Cvar_SetValue( "vid_fullscreen", 0);
-				ri.Con_Printf( PRINT_ALL, "ref_soft::R_BeginFrame() - fullscreen unavailable in this mode\n" );
+				Com_Printf ("ref_soft::R_BeginFrame() - fullscreen unavailable in this mode\n" );
 				sw_state.prev_mode = sw_mode->value;
 //				vid_fullscreen->modified = false;
 //				sw_mode->modified = false;
@@ -1419,30 +1419,3 @@ refexport_t GetRefAPI (refimport_t rimp)
 	return re;
 }
 
-#ifndef REF_HARD_LINKED
-// this is only here so the functions in q_shared.c and q_shwin.c can link
-void Sys_Error (char *error, ...)
-{
-	va_list		argptr;
-	char		text[1024];
-
-	va_start (argptr, error);
-	vsprintf (text, error, argptr);
-	va_end (argptr);
-
-	ri.Sys_Error (ERR_FATAL, "%s", text);
-}
-
-void Com_Printf (char *fmt, ...)
-{
-	va_list		argptr;
-	char		text[1024];
-
-	va_start (argptr, fmt);
-	vsprintf (text, fmt, argptr);
-	va_end (argptr);
-
-	ri.Con_Printf (PRINT_ALL, "%s", text);
-}
-
-#endif
