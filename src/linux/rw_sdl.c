@@ -460,9 +460,13 @@ static qboolean SDLimp_InitGraphics( qboolean fullscreen )
 	gl_state.stencil = true;
 	bpp = 0;
 #else
-	sdl_palettemode = SDL_PHYSPAL|SDL_LOGPAL;
 	flags = 0;
+#ifdef COLOR_32
+	bpp = 32;
+#else
+	sdl_palettemode = SDL_PHYSPAL|SDL_LOGPAL;
 	bpp = 8;
+#endif
 #endif
 
 	if (fullscreen)
@@ -556,6 +560,7 @@ rserr_t SWimp_SetMode( int *pwidth, int *pheight, int mode, qboolean fullscreen 
 #ifndef GL_QUAKE
 void SWimp_SetPalette( const unsigned char *palette )
 {
+#ifndef COLOR_32
 	SDL_Color colors[256];
 
 	int i;
@@ -573,6 +578,7 @@ void SWimp_SetPalette( const unsigned char *palette )
 	}
 
 	SDL_SetPalette(surface, sdl_palettemode, colors, 0, 256);
+#endif
 }
 #endif
 

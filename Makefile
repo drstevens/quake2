@@ -17,7 +17,7 @@ ifneq ($(PLATFORM),linux)
 endif
 
 CC=gcc
-CFLAGS=-funsigned-char -pipe $(shell sdl-config --cflags) -DUSE_SDL -DUSE_CURL
+CFLAGS=-funsigned-char -pipe $(shell sdl-config --cflags) -DCOLOR_32 -DUSE_SDL -DUSE_CURL
 
 ifeq ($(PLATFORM),darwin)
 	CFLAGS += -D__APPLE__ -I/opt/local/include
