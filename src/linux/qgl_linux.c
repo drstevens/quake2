@@ -17,6 +17,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
+
+#ifdef GL_QUAKE
 /*
 ** QGL_WIN.C
 **
@@ -136,4 +138,25 @@ void *qglGetProcAddress(const GLchar *procName)
 		return (void *)dlsym( glw_state.OpenGLLib, (const char *)procName );
 	return NULL;
 }
+
+#else
+
+#include "../qcommon/qcommon.h"
+
+qboolean QGL_Init( const char *dllname )
+{
+	Com_Printf ("QGL_Init: Compile with -DGL_QUAKE for GL support");
+	return false;
+}
+
+void QGL_Shutdown( void )
+{
+}
+
+void *qglGetProcAddress(void *procName)
+{
+	return NULL;
+}
+
+#endif
 

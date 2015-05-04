@@ -1369,3 +1369,54 @@ void Draw_GetPalette (void)
 #endif
 }
 
+/*
+================
+R_GetModeInfo
+================
+*/
+typedef struct vidmode_s
+{
+	const char *description;
+	int         width, height;
+	int         mode;
+} vidmode_t;
+
+static const vidmode_t r_vidModes[] =
+{
+	{ "Mode 0: 320x240",	 320,  240,	0  },
+	{ "Mode 1: 400x300",	 400,  300,	1  },
+	{ "Mode 2: 512x384",	 512,  384,	2  },
+	{ "Mode 3: 640x480",	 640,  480,	3  },
+	{ "Mode 4: 800x600",	 800,  600,	4  },
+	{ "Mode 5: 960x720",	 960,  720,	5  },
+	{ "Mode 6: 1024x768",	1024,  768,	6  },
+	{ "Mode 7: 1152x864",	1152,  864,	7  },
+	{ "Mode 8: 1280x960",	1280,  960,	8  },
+	{ "Mode 9: 1600x1200",	1600, 1200,	9  },
+	{ "Mode 10: 2048x1536",	2048, 1536,	10 },
+	{ "Mode 11: 1024x480",	1024,  480,	11 },
+	{ "Mode 12: 1280x768",	1280,  768,	12 },
+	{ "Mode 13: 1280x1024",	1280, 1024,	13 }
+};
+
+static const int s_numVidModes = ( sizeof( r_vidModes ) / sizeof( r_vidModes[0] ) );
+
+qboolean R_GetModeInfo( int *width, int *height, int mode )
+{
+	if ( mode < -1 || mode >= s_numVidModes )
+		return false;
+
+/* XXX TODO XXX TODO XXX TODO
+	if ( mode == -1 ) {
+		*width = r_customwidth->integer;
+		*height = r_customheight->integer;
+		// *windowAspect = r_customaspect->value;
+		return true;
+	}
+*/
+	*width  = r_vidModes[mode].width;
+	*height = r_vidModes[mode].height;
+
+	return true;
+}
+

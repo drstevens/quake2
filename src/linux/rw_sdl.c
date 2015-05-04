@@ -488,7 +488,7 @@ static qboolean SDLimp_InitGraphics( qboolean fullscreen )
 	SDL_ShowCursor(0);
 
 #ifndef GL_QUAKE
-	vid.rowbytes = surface->pitch;
+	vid.rowpixels = surface->pitch / sizeof (pixel_t);
 	vid.buffer = surface->pixels;
 #endif
 

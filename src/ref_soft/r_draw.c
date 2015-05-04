@@ -443,3 +443,11 @@ void Draw_FadeScreen (void)
 		}
 	}
 }
+
+
+//=============================================================================
+void	Draw_ScaledPic (int x, int y, float scale, const char *pic, float red, float green, float blue, float alpha)
+{
+	/* STUB TODO XXX TODO XXX TODO */
+}
+

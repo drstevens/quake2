@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#define COLOR_32 1
+/* #define COLOR_32 1 */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,6 +34,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define MAX_VERTS			(MD2_MAX_VERTS)
 #define MAX_FRAMES			(MD2_MAX_FRAMES)
 #define MAX_MD2SKINS		(MD2_MAX_SKINS)
+
+/* no id386 macros */
+#undef id386
+#define id386 0
 
 #define REF_VERSION     "SOFT 0.01"
 
@@ -813,6 +817,8 @@ void R_Shutdown (void);
 void R_InitCaches (void);
 void D_FlushCaches (void);
 
+qboolean R_GetModeInfo( int *width, int *height, int mode );
+
 void	R_ScreenShot_f( void );
 void    R_EndRegistration (void);
 
@@ -823,6 +829,7 @@ void    Draw_Fill (int x, int y, int w, int h, int c);
 void    Draw_FadeScreen (void);
 
 void    Draw_GetPalette (void);
+void	Draw_ScaledPic (int x, int y, float scale, const char *pic, float red, float green, float blue, float alpha);
 
 void	 R_BeginFrame( float camera_separation );
 

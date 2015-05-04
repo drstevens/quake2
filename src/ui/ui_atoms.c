@@ -421,7 +421,6 @@ M_Draw
 */
 void M_Draw (void)
 {
-	extern cvar_t *gl_scale;
 	int index;
 	static int prev;
 
@@ -455,7 +454,13 @@ void M_Draw (void)
 	else
 		Menu_Draw( m_active );
 
-	Draw_ScaledPic(m_mouse[0], m_mouse[1], gl_scale->value, "ch1", 1, 1, 1, 1);
+#ifdef GL_QUAKE
+	{
+		/* XXX TODO XXX TODO XXX TODO */
+		extern cvar_t *gl_scale;
+		Draw_ScaledPic(m_mouse[0], m_mouse[1], gl_scale->value, "ch1", 1, 1, 1, 1);
+	}
+#endif
 
 	// delay playing the enter sound until after the
 	// menu has been drawn, to avoid delay while
