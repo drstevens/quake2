@@ -37,7 +37,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #undef id386
 #define id386 0
 
+#ifdef COLOR_32
+#define REF_VERSION     "SOFT (32-BIT COLOR)"
+#else
 #define REF_VERSION     "SOFT 0.01"
+#endif
 
 // up / down
 #define PITCH   0

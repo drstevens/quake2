@@ -456,7 +456,7 @@ void M_Draw (void)
 
 #ifdef GL_QUAKE
 	{
-		/* XXX TODO XXX TODO XXX TODO */
+		// Draw mouse cursor in GL mode
 		extern cvar_t *gl_scale;
 		Draw_ScaledPic(m_mouse[0], m_mouse[1], gl_scale->value, "ch1", 1, 1, 1, 1);
 	}

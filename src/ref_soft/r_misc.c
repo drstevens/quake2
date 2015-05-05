@@ -616,6 +616,9 @@ R_ScreenShot_f
 */  
 void R_ScreenShot_f (void) 
 { 
+	// XXX TODO
+	// Need to write screenshots in TGA format for 32-bit colour
+#ifndef COLOR_32
 	int			i; 
 	char		pcxname[80]; 
 	char		checkname[MAX_OSPATH];
@@ -659,9 +662,10 @@ void R_ScreenShot_f (void)
 // save the pcx file 
 // 
 
-	WritePCXfile (checkname, (byte *) vid.buffer, vid.width, vid.height, vid.rowpixels, // XXX TODO BAD CAST
+	WritePCXfile (checkname, (byte *) vid.buffer, vid.width, vid.height, vid.rowpixels,
 				  palette);
 
 	Com_Printf ("Wrote %s\n", checkname);
+#endif
 } 
 

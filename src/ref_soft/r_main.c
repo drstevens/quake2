@@ -128,6 +128,8 @@ cvar_t	*r_dspeeds;
 cvar_t	*r_fullbright;
 cvar_t  *r_lerpmodels;
 cvar_t  *r_novis;
+cvar_t  *r_customwidth;
+cvar_t  *r_customheight;
 
 cvar_t	*r_speeds;
 cvar_t	*r_lightlevel;	//FIXME HACK
@@ -245,6 +247,25 @@ void R_InitTurb (void)
 
 void R_ImageList_f( void );
 
+static void OnChangeCustomWidth(cvar_t *self, const char *oldValue)
+{
+	if(sw_state.prev_mode == -1)
+		sw_state.prev_mode = 3;
+
+	if(self->integer && self->integer < 320)
+		Cvar_Set(self->name, "320");
+}
+
+static void OnChangeCustomHeight(cvar_t *self, const char *oldValue)
+{
+	if(sw_state.prev_mode == -1)
+		sw_state.prev_mode = 3;
+
+	if(self->integer && self->integer < 240)
+		Cvar_Set(self->name, "240");
+}
+
+
 void R_Register (void)
 {
 	sw_aliasstats = Cvar_Get ("sw_polymodelstats", "0", 0);
@@ -272,6 +293,13 @@ void R_Register (void)
 	r_lightlevel = Cvar_Get ("r_lightlevel", "0", 0);
 	r_lerpmodels = Cvar_Get( "r_lerpmodels", "1", 0 );
 	r_novis = Cvar_Get( "r_novis", "0", 0 );
+
+	r_customwidth = Cvar_Get ("r_customwidth",  "0", CVAR_ARCHIVE);
+	r_customheight = Cvar_Get ("r_customheight", "0", CVAR_ARCHIVE);
+	r_customwidth->OnChange = OnChangeCustomWidth;
+	r_customheight->OnChange = OnChangeCustomHeight;
+	OnChangeCustomWidth(r_customwidth, r_customwidth->resetString);
+	OnChangeCustomHeight(r_customheight, r_customheight->resetString);
 
 	vid_fullscreen = Cvar_Get( "vid_fullscreen", "0", CVAR_ARCHIVE );
 	vid_gamma = Cvar_Get( "vid_gamma", "1.0", CVAR_ARCHIVE );
@@ -1406,14 +1434,12 @@ qboolean R_GetModeInfo( int *width, int *height, int mode )
 	if ( mode < -1 || mode >= s_numVidModes )
 		return false;
 
-/* XXX TODO XXX TODO XXX TODO
 	if ( mode == -1 ) {
 		*width = r_customwidth->integer;
 		*height = r_customheight->integer;
-		// *windowAspect = r_customaspect->value;
 		return true;
 	}
-*/
+
 	*width  = r_vidModes[mode].width;
 	*height = r_vidModes[mode].height;
 

@@ -1074,11 +1074,24 @@ void R_PolysetDrawSpans8_Opaque (spanpackage_t *pspanpackage)
 				if ((lzi >> 16) >= *lpz)
 				{
 //PGM
-					//if(r_newrefdef.rdflags & RDF_IRGOGGLES && currententity->flags & RF_IR_VISIBLE)
-					//	*lpdest = ((byte *)vid.colormap)[irtable[*lptex]];
-					//else 
-					// XXX TODO FIXUP
-					*lpdest = apply_lighting (llight, *lptex);
+					if( r_newrefdef.rdflags & RDF_IRGOGGLES && currententity->flags & RF_IR_VISIBLE) {
+#ifdef COLOR_32
+						// Fake IR goggles effect, quite different to the
+						// original, but I don't want to do 8-bit rendering
+						// just in order to support this..
+
+						// first render at normal brightness
+						*lpdest = apply_lighting (0x2000, *lptex);
+
+						// then make it red
+						lpdest->rgb.r = 0x80;
+#else
+						// Original ref_soft IR goggles effect
+						*lpdest = vid.colormap[irtable[lptex->c]];
+#endif
+					} else  {
+						*lpdest = apply_lighting (llight, *lptex);
+					}
 //PGM
 					*lpz = lzi >> 16;
 				}

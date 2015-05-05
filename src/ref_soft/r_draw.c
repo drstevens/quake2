@@ -237,12 +237,18 @@ Draw_StretchRaw
 */
 void Draw_StretchRaw (int x, int y, int w, int h, int cols, int rows, byte *data)
 {
+	// XXX TODO
+	// This function is used for cinematic playback only.
+	// It may be rewritten based on the GL version but I'd need 
+	// a .cin file for testing and I can't find the Quake 2 CD.
+#ifndef COLOR_32
 	image_t	pic;
 
-	pic.pixels[0] = (pixel_t *) data; // XXX TODO BAD CAST
+	pic.pixels[0] = (pixel_t *) data;
 	pic.width = cols;
 	pic.height = rows;
 	Draw_StretchPicImplementation (x, y, w, h, &pic);
+#endif
 }
 
 /*
